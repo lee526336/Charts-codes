@@ -1,0 +1,57 @@
+# install wordcloud
+!conda install -c conda-forge wordcloud==1.4.1 --yes
+
+# import package and its set of stopwords
+from wordcloud import WordCloud, STOPWORDS
+
+print ('Wordcloud is installed and imported!')
+
+# download file and save as alice_novel.txt
+!wget --quiet https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DV0101EN-SkillsNetwork/Data%20Files/alice_novel.txt
+
+# open the file and read it into a variable alice_novel
+alice_novel = open('alice_novel.txt', 'r').read()
+    
+print ('File downloaded and saved!')
+
+stopwords = set(STOPWORDS)
+
+
+# instantiate a word cloud object
+alice_wc = WordCloud(
+    background_color='white',
+    max_words=2000,
+    stopwords=stopwords
+)
+
+# generate the word cloud
+alice_wc.generate(alice_novel)
+
+# display the word cloud
+plt.imshow(alice_wc, interpolation='bilinear')
+plt.axis('off')
+plt.show()
+
+fig = plt.figure()
+fig.set_figwidth(14) # set width
+fig.set_figheight(18) # set height
+
+# display the cloud
+plt.imshow(alice_wc, interpolation='bilinear')
+plt.axis('off')
+plt.show()
+
+
+stopwords.add('said') # add the words said to stopwords
+
+# re-generate the word cloud
+alice_wc.generate(alice_novel)
+
+# display the cloud
+fig = plt.figure()
+fig.set_figwidth(14) # set width
+fig.set_figheight(18) # set height
+
+plt.imshow(alice_wc, interpolation='bilinear')
+plt.axis('off')
+plt.show()
